@@ -182,6 +182,7 @@ public partial class MapPreview : MonoBehaviour
         mesh.RecalculateBounds();
 
         meshObject = new GameObject("DelaunatorMesh");
+        meshObject.transform.parent = transform;
         var meshRenderer = meshObject.AddComponent<MeshRenderer>();
         meshRenderer.sharedMaterial = meshMaterial ?? new Material(Shader.Find("Standard"));
         var meshFilter = meshObject.AddComponent<MeshFilter>();
@@ -203,6 +204,7 @@ public partial class MapPreview : MonoBehaviour
         }
 
         PointsContainer = new GameObject(nameof(PointsContainer)).transform;
+        PointsContainer.transform.parent = transform;
     }
     private void CreateNewTrianglesContainer()
     {
@@ -212,6 +214,7 @@ public partial class MapPreview : MonoBehaviour
         }
 
         TrianglesContainer = new GameObject(nameof(TrianglesContainer)).transform;
+        TrianglesContainer.transform.parent = transform;
     }
     private void CreateNewHullContainer()
     {
@@ -221,6 +224,7 @@ public partial class MapPreview : MonoBehaviour
         }
 
         HullContainer = new GameObject(nameof(HullContainer)).transform;
+        HullContainer.transform.parent = transform;
     }
     private void CreateNewVoronoiContainer()
     {
@@ -230,5 +234,6 @@ public partial class MapPreview : MonoBehaviour
         }
 
         VoronoiContainer = new GameObject(nameof(VoronoiContainer)).transform;
+        VoronoiContainer.transform.parent = transform;
     }
 }
