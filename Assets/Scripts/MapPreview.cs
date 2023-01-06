@@ -63,6 +63,8 @@ public partial class MapPreview : MonoBehaviour
 
             CreatePreview();
 
+            CenterCamera();
+
             return;
         }
 
@@ -235,5 +237,13 @@ public partial class MapPreview : MonoBehaviour
 
         VoronoiContainer = new GameObject(nameof(VoronoiContainer)).transform;
         VoronoiContainer.transform.parent = transform;
+    }
+
+    private void CenterCamera()
+    {
+        var target = meshObject.GetComponent<Renderer>().bounds.center;
+        var camera = GameObject.Find("Main Camera");
+
+        camera.transform.position = new Vector3(target.x, target.y, camera.transform.position.z);
     }
 }
