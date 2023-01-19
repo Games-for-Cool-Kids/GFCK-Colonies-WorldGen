@@ -703,7 +703,7 @@ PrefabInstance:
     - target: {fileID: 7017956188800435739, guid: c5d82fa185d78334199d0cfd6751110d, type: 3}
       propertyPath: pointsSampler
       value: 
-      objectReference: {fileID: 11400000, guid: cab6c165b6e9a0e42a9e37dcadede44f, type: 2}
+      objectReference: {fileID: 11400000, guid: 9ef76978fa8c3d9499cfe983b5eb9513, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5d82fa185d78334199d0cfd6751110d, type: 3}
 --- !u!850595691 &1950392718

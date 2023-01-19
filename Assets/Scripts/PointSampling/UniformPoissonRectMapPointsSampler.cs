@@ -14,7 +14,7 @@ public class UniformPoissonRectMapPointsSampler : MapPointsSampler
 
     public override List<IPoint> Sample()
     {
-        var sampler = UniformPoissonDiskSampler.SampleRectangle(Vector2.zero, size, minDistance, pointsPerIteration);
+        var sampler = UniformPoissonDiskSampler.SampleRectangle(-size / 2.0f, size / 2.0f, minDistance, pointsPerIteration);
         return sampler.Select(point => new Vector2(point.x, point.y)).ToPoints().ToList();
     }
 }
