@@ -65,3 +65,7 @@ crashlytics-build.properties
 *.dwlt
 
 UserSettings/EditorUserSettings.asset
+
+ProjectSettings/TimelineSettings.asset
+
+UserSettings/Search.settings
