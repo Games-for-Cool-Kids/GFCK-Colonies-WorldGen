@@ -46,8 +46,6 @@ public class RandomRectMapPointsSampler : MapPointsSampler
 
     private void RemoveInvalidPoints(ref List<Vector2> pointList)
     {
-        Debug.Log("points before: " + pointList.Count);
-
         for (int i = pointList.Count - 1; i >= 0; i--)
         {
             Vector2 p1 = pointList[i];
@@ -66,7 +64,5 @@ public class RandomRectMapPointsSampler : MapPointsSampler
                 }
             }
         }
-
-        Debug.Log("points after: " + pointList.Count);
     }
 }
