@@ -38,7 +38,7 @@ public class RandomRectMapPointsSampler : MapPointsSampler
     {
         for (int i = 0; i < initialPoints; i++)
         {
-            var p = new Vector2(Random.value, Random.value);
+            var p = new Vector2(StaticRandom.RandomFloat(), StaticRandom.RandomFloat());
 
             pointList.Add(p);
         }

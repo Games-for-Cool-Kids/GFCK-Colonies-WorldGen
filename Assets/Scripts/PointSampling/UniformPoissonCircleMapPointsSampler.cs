@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using DelaunatorSharp;
-using DelaunatorSharp.Unity;
 using DelaunatorSharp.Unity.Extensions;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +12,7 @@ public class UniformPoissonCircleMapPointsSampler : MapPointsSampler
 
     public override List<IPoint> Sample()
     {
-        var sampler = UniformPoissonDiskSampler.SampleCircle(Vector2.zero, size, minDistance);
+        var sampler = DelaunatorSharp.Unity.GFCK.UniformPoissonDiskSampler.SampleCircle(Vector2.zero, size, minDistance);
         return sampler.Select(point => new Vector2(point.x, point.y)).ToPoints().ToList();
     }
 }
