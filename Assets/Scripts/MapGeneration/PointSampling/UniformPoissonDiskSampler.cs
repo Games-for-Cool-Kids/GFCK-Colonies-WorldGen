@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace DelaunatorSharp.Unity.GFCK
+namespace MapGeneration
 {
     // http://theinstructionlimit.com/fast-uniform-poisson-disk-sampling-in-c <- copied from Renaud Bédard
 
