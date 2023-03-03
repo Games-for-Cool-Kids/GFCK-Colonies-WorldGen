@@ -36,51 +36,20 @@ public partial class MapPreview : MonoBehaviour
     private Transform TrianglesContainer;
 
 
-    private void Start()
+    void Start()
     {
         Clear();
     }
-    void Update()
+
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (generator != null)
-            {
-                generator.Clear();
-                generator = null;
-            }
-
-            Clear();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Clear();
-
-            generator = GetComponent<MapGenerator>();
-            generator.Clear();
-            generator.Generate();
-
-            CreatePreview();
-
-            CenterCamera();
-
-            return;
-        }
-
-        if (Input.GetMouseButtonDown(0)
-         && generator)
-        {
-            var target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            generator.points.Add(new Point(target.x, target.y));
-
-            generator.Generate();
-
-            CreatePreview();
-        }
+        generator = GetComponent<MapGenerator>();
+        generator.Cleared += (s) => Clear();
+        generator.VoronoiGenerated += (s) => Generate();
+        generator.VoronoiUpdated += (s) => Generate();
     }
 
-    private void CreatePreview()
+    private void Generate()
     {
         if (generator.points.Count < 3)
             return;
