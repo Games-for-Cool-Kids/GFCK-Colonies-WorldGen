@@ -20,29 +20,6 @@ namespace MapGeneration
         public event MapGeneratorEventHandler VoronoiUpdated;
 
 
-
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Clear();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                Clear();
-                GenerateAsync();
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                var target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                points.Add(new Point(target.x, target.y));
-
-                GenerateAsync();
-            }
-        }
-
         public async void GenerateAsync()
         {
             var generationType = points.Count == 0

@@ -44,7 +44,7 @@ public partial class MapPreview : MonoBehaviour
 
     private void OnEnable()
     {
-        generator = GetComponent<MapGenerator>();
+        generator = FindObjectOfType<MapGenerator>();
         generator.Cleared += (s) => Clear();
         generator.VoronoiGenerated += (s) => Generate();
         generator.VoronoiUpdated += (s) => Generate();

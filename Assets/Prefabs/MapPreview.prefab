@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1292916145698231222}
   - component: {fileID: 143374155}
-  - component: {fileID: 7017956188800435739}
   m_Layer: 0
   m_Name: MapPreview
   m_TagString: Untagged
@@ -61,16 +60,3 @@ MonoBehaviour:
   drawVoronoiEdges: 1
   drawHull: 1
   createMesh: 1
---- !u!114 &7017956188800435739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1292916145698231221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17f600b5f6535ff46ba7190460c2a9fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointsSampler: {fileID: 11400000, guid: 7442d9e686ccd084bad6a924e6a0350d, type: 2}
