@@ -21,12 +21,15 @@ public class MapGeneratorController : MonoBehaviour
 
     private List<UserAction> userActions;
 
+    private PointerOverUIChecker pointerChecker;
+
+
     void OnEnable()
     {
         generator = FindObjectOfType<MapGenerator>();
+        pointerChecker = GameObject.Find("EventSystem").GetComponent<PointerOverUIChecker>();
 
         InitializeUserActions();
-
         CreateActionButtons();
     }
 
@@ -40,7 +43,8 @@ public class MapGeneratorController : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)
+         && !pointerChecker.PointerOverUI)
         {
             var target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             generator.points.Add(new Point(target.x, target.y));
@@ -81,6 +85,7 @@ public class MapGeneratorController : MonoBehaviour
     void CreateActionButtons()
     {
         var parentPanel = GameObject.Find("ActionPanel");
+        foreach(Transform t in parentPanel.transform) { t.gameObject.SetActive(false); } // Cannot destroy because of UI limitations so just hide instead.
 
         foreach (var userAction in userActions)
         {
@@ -89,4 +94,5 @@ public class MapGeneratorController : MonoBehaviour
             button.GetComponentInChildren<TMP_Text>().text = userAction.text;
         }
     }
+
 }
