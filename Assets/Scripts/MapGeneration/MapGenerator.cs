@@ -59,6 +59,8 @@ namespace MapGeneration
             points = delaunator.GetRellaxedPoints().ToList();
 
             CreateDelauneyVoronoi();
+
+            VoronoiUpdated?.Invoke(this);
         }
 
 
