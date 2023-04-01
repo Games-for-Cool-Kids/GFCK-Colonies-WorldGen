@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using DelaunatorSharp;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,11 +14,12 @@ namespace MapGeneration
         public MapPointsSampler pointsSampler = null;
         public List<IPoint> points = new();
 
+        public float maxRelaxation = 0.1f;
+
         public delegate void MapGeneratorEventHandler(object sender);
         public event MapGeneratorEventHandler Cleared;
         public event MapGeneratorEventHandler VoronoiGenerated;
         public event MapGeneratorEventHandler VoronoiUpdated;
-
 
         public async void GenerateAsync()
         {
@@ -58,6 +59,8 @@ namespace MapGeneration
         {
             if (delaunator == null)
                 return;
+
+            points = delaunator.GetRelaxedPoints(maxRelaxation).ToList();
 
             CreateDelauneyVoronoi();
 
