@@ -527,7 +527,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17f600b5f6535ff46ba7190460c2a9fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsSampler: {fileID: 11400000, guid: 7442d9e686ccd084bad6a924e6a0350d, type: 2}
+  pointsSampler: {fileID: 11400000, guid: 9ef76978fa8c3d9499cfe983b5eb9513, type: 2}
+  maxRelaxation: 0.03
 --- !u!4 &1144177023
 Transform:
   m_ObjectHideFlags: 0

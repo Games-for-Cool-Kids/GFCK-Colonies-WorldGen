@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RandomRectMapPointsSampler
   m_EditorClassIdentifier: 
   size: {x: 5, y: 5}
-  initialPoints: 200
-  minimumSqDistance: 0.001
+  initialPoints: 500
+  minimumSqDistance: 0.0002
