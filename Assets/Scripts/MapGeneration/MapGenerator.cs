@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using DelaunatorSharp;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -56,7 +56,8 @@ namespace MapGeneration
 
         public void RelaxPoints()
         {
-            points = delaunator.GetRellaxedPoints().ToList();
+            if (delaunator == null)
+                return;
 
             CreateDelauneyVoronoi();
 
