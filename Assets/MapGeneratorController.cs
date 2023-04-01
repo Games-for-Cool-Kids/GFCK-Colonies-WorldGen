@@ -82,10 +82,12 @@ public class MapGeneratorController : MonoBehaviour
         };
     }
 
-    void CreateActionButtons()
+    private void CreateActionButtons()
     {
         var parentPanel = GameObject.Find("ActionPanel");
-        foreach(Transform t in parentPanel.transform) { t.gameObject.SetActive(false); } // Cannot destroy because of UI limitations so just hide instead.
+
+        foreach (Transform t in parentPanel.transform)
+            t.gameObject.SetActive(false); // Cannot destroy because of UI limitations so just hide instead.
 
         foreach (var userAction in userActions)
         {
