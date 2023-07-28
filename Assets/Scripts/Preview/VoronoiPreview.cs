@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using DelaunatorSharp;
 using DelaunatorSharp.Unity.Extensions;
 using MapGeneration;
 
-public partial class MapPreview : MonoBehaviour
+public partial class VoronoiPreview : MonoBehaviour
 {
     public GameObject trianglePointPrefab;
     public GameObject voronoiPointPrefab;
