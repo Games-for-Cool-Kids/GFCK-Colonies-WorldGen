@@ -51,7 +51,7 @@ public class MapGeneratorController : MonoBehaviour
 			var target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			generator.points.Add(new Point(target.x, target.y));
 
-			generator.GenerateAsync();
+			generator.GenerateAsync(MapGeneration.Flags.GenerationType.Update);
 		}
 	}
 
@@ -70,8 +70,7 @@ public class MapGeneratorController : MonoBehaviour
 				text = "[Return] Generate",
 				action = () =>
 				{
-					generator.Clear();
-					generator.GenerateAsync();
+					generator.GenerateAsync(MapGeneration.Flags.GenerationType.Clean);
 				},
 				hotkey = KeyCode.Return
 			},

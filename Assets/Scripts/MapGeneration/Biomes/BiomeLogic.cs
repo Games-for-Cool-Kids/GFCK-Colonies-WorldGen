@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace MapGeneration.Biomes
@@ -25,12 +26,30 @@ namespace MapGeneration.Biomes
 				biome.Id = cell.Index;
 				biome.Points = cell.Points.ToVectors2();
 				biome.Type = BiomeType.LAND;
-				biomes.Add(biome);
+
+				if(biome.Points.Length >= 3) // Filter out incomplete polygons.
+					biomes.Add(biome);
 			}
 
 			LinkBiomesWithNeighbors(biomes);
 
 			return biomes;
+		}
+
+		public static List<Line> GetBorders(BiomeData biome)
+		{
+			List<Line> borders = new();
+
+			var p1 = biome.Points[0];
+			for (int i = 1; i < biome.Points.Count(); i++)
+			{
+				var p2 = biome.Points[i];
+				borders.Add(new(p1, p2));
+				p1 = p2;
+			}
+			borders.Add(new(p1, biome.Points[0])); // Add end-start line.
+
+			return borders;
 		}
 
 		private static void LinkBiomesWithNeighbors(List<BiomeData> biomes)

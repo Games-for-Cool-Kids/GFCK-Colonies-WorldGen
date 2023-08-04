@@ -1,7 +1,7 @@
 ﻿
 namespace MapGeneration.Flags
 {
-    enum GenerationType
+    public enum GenerationType
     {
         Clean,
         Update,

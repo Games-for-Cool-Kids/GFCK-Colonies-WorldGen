@@ -24,28 +24,33 @@ namespace MapGeneration
 		public event MapGeneratorEventHandler Cleared;
 		public event MapGeneratorEventHandler VoronoiGenerated;
 		public event MapGeneratorEventHandler VoronoiUpdated;
+		public event MapGeneratorEventHandler BiomesGenerated;
+		public event MapGeneratorEventHandler BiomesUpdated;
 
-		public async void GenerateAsync()
+		public async void GenerateAsync(GenerationType generationType)
 		{
-			var generationType = points.Count == 0
-				? GenerationType.Clean
-				: GenerationType.Update;
-
+			if (generationType == GenerationType.Clean)
+				Clear();
 
 			await Task.Run(() =>
 			{
 				GenerateInternal(generationType);
 			});
 
-
 			if (generationType == GenerationType.Clean)
+			{
 				VoronoiGenerated?.Invoke(this);
+				BiomesGenerated?.Invoke(this);
+			}
 			else if (generationType == GenerationType.Update)
+			{
 				VoronoiUpdated?.Invoke(this);
+				BiomesUpdated?.Invoke(this);
+			}
 		}
-		private void GenerateInternal(MapGeneration.Flags.GenerationType generationType)
+		private void GenerateInternal(GenerationType generationType)
 		{
-			if (generationType == MapGeneration.Flags.GenerationType.Clean)
+			if (generationType == GenerationType.Clean)
 				SamplePoints();
 
 			CreateDelauneyVoronoi();
@@ -69,8 +74,10 @@ namespace MapGeneration
 			points = delaunator.GetRelaxedPoints(maxRelaxation).ToList();
 
 			CreateDelauneyVoronoi();
+			GenerateBiomesData();
 
 			VoronoiUpdated?.Invoke(this);
+			BiomesUpdated?.Invoke(this);
 		}
 
 
@@ -94,6 +101,7 @@ namespace MapGeneration
 		private async void GenerateBiomesData()
 		{
 			Map.Biomes = BiomeLogic.CreateBiomeDataFrom(delaunator).ToArray();
+			BiomesGenerated?.Invoke(this);
 		}
 
 	}
