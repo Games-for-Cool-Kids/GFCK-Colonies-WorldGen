@@ -6,6 +6,7 @@ using System.Linq;
 using MapGeneration.Flags;
 using MapGeneration.Data;
 using MapGeneration.Biomes;
+using MapGeneration.Steps.Water;
 
 namespace MapGeneration
 {
@@ -18,6 +19,8 @@ namespace MapGeneration
 
 		public float maxRelaxation = 0.1f;
 
+		public WaterGenerator waterGenerator = null;
+
 		public MapData Map = new();
 
 		public delegate void MapGeneratorEventHandler(object sender);
@@ -27,15 +30,15 @@ namespace MapGeneration
 		public event MapGeneratorEventHandler BiomesGenerated;
 		public event MapGeneratorEventHandler BiomesUpdated;
 
-		public async void GenerateAsync(GenerationType generationType)
+		public /*async*/ void GenerateAsync(GenerationType generationType)
 		{
 			if (generationType == GenerationType.Clean)
 				Clear();
 
-			await Task.Run(() =>
-			{
+			//await Task.Run(() =>
+			//{
 				GenerateInternal(generationType);
-			});
+			//});
 
 			if (generationType == GenerationType.Clean)
 			{
@@ -55,6 +58,9 @@ namespace MapGeneration
 
 			CreateDelauneyVoronoi();
 
+			RelaxPointsInternal();
+			RelaxPointsInternal();
+
 			GenerateBiomesData();
 		}
 
@@ -68,6 +74,14 @@ namespace MapGeneration
 
 		public void RelaxPoints()
 		{
+			RelaxPointsInternal();
+			
+			VoronoiUpdated?.Invoke(this);
+			BiomesUpdated?.Invoke(this);
+		}
+
+		private void RelaxPointsInternal()
+		{
 			if (delaunator == null)
 				return;
 
@@ -75,13 +89,8 @@ namespace MapGeneration
 
 			CreateDelauneyVoronoi();
 			GenerateBiomesData();
-
-			VoronoiUpdated?.Invoke(this);
-			BiomesUpdated?.Invoke(this);
 		}
 
-
-		// Private Functions
 		private void SamplePoints()
 		{
 			points = pointsSampler.Sample();
@@ -98,9 +107,12 @@ namespace MapGeneration
 			delaunator = new Delaunator(points.ToArray());
 		}
 
-		private async void GenerateBiomesData()
+		private void GenerateBiomesData()
 		{
 			Map.Biomes = BiomeLogic.CreateBiomeDataFrom(delaunator).ToArray();
+
+			waterGenerator.Generate(Map);
+
 			BiomesGenerated?.Invoke(this);
 		}
 

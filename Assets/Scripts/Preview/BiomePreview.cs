@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using MapGeneration;
 using MapGeneration.Biomes;
+using System.Collections.Generic;
+using MapGeneration.Data;
 
 public partial class BiomePreview : MonoBehaviour
 {
@@ -10,9 +12,10 @@ public partial class BiomePreview : MonoBehaviour
 	public Color waterColor = Color.blue;
 	public Color landColor = Color.green;
 
-	public Material meshMaterial;
 	public Material lineMaterial;
 
+	public Material meshMaterial;
+	private Dictionary<BiomeType, Material> meshMaterials;
 
 	public bool drawBorders = true;
 	public bool createMeshes = true;
@@ -34,6 +37,8 @@ public partial class BiomePreview : MonoBehaviour
 		generator.Cleared += (s) => Clear();
 		generator.BiomesGenerated += (s) => Generate();
 		generator.BiomesUpdated += (s) => Generate();
+
+		InitializeMaterials();
 	}
 
 	private void Generate()
@@ -89,6 +94,31 @@ public partial class BiomePreview : MonoBehaviour
 		lineRenderer.endWidth = width;
 		lineRenderer.sortingOrder = order;
 	}
+
+	private Material CreateMeshMaterial(Color color)
+	{
+		var material = new Material(meshMaterial);
+		material.color = color;
+		return material;
+	}
+
+	private void InitializeMaterials()
+	{
+		meshMaterials = new()
+		{
+			{ BiomeType.WATER, CreateMeshMaterial(waterColor) },
+			{ BiomeType.LAND, CreateMeshMaterial(landColor) }
+		};
+	}
+
+	private Material GetBiomeMaterial(BiomeType biomeType)
+	{
+		if(meshMaterials.ContainsKey(biomeType)) 
+			return meshMaterials[biomeType];
+
+		return new Material(Shader.Find("Standard"));
+	}
+
 	private void CreateMeshes()
 	{
 		if (!createMeshes)
@@ -111,7 +141,7 @@ public partial class BiomePreview : MonoBehaviour
 			biomeMesh.transform.parent = MeshesContainer.transform;
 
 			var meshRenderer = biomeMesh.AddComponent<MeshRenderer>();
-			meshRenderer.sharedMaterial = meshMaterial ?? new Material(Shader.Find("Standard"));
+			meshRenderer.sharedMaterial = GetBiomeMaterial(biome.Type);
 
 			var meshFilter = biomeMesh.AddComponent<MeshFilter>();
 			meshFilter.mesh = mesh;
