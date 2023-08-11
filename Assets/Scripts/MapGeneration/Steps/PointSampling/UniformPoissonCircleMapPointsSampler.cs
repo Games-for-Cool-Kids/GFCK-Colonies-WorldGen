@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MapGeneration
 {
-    [CreateAssetMenu(menuName = "MapGeneration/UniformPoissonCircleMapPointsSampler")]
+    [CreateAssetMenu(menuName = "MapGeneration/PointsSampling/UniformPoissonCircleMapPointsSampler")]
     public class UniformPoissonCircleMapPointsSampler : MapPointsSampler
     {
         public float size = 3;

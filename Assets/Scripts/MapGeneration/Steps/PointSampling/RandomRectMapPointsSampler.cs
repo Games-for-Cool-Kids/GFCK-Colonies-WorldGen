@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MapGeneration
 {
-    [CreateAssetMenu(menuName = "MapGeneration/RandomRectMapPointsSampler")]
+    [CreateAssetMenu(menuName = "MapGeneration/PointsSampling/RandomRectMapPointsSampler")]
     public class RandomRectMapPointsSampler : MapPointsSampler
     {
         public Vector2 size = Vector2.one;

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MapGeneration
 {
-    [CreateAssetMenu(menuName = "MapGeneration/UniformPoissonRectMapPointsSampler")]
+    [CreateAssetMenu(menuName = "MapGeneration/PointsSampling/UniformPoissonRectMapPointsSampler")]
     public class UniformPoissonRectMapPointsSampler : MapPointsSampler
     {
         public Vector2 size = Vector2.one;
